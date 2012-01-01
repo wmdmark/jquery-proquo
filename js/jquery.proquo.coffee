@@ -1,0 +1,73 @@
+$.fn.extend
+	
+	proQuo: (options)->
+		shortUrlLength = 20
+		shortUrlLengthHttps = 21
+		$tweets = $(this)
+		ops = $.extend(
+			tweetLabel: "Tweet this"
+			addCurlyQuotes: no
+			updateUrlLengthFromTwitter: no
+			useTwitterButton: no
+			getTweetSourceUrl: ->
+				return window.location.pathname
+			getTweetText: ->
+				return $.trim($(this).text())
+			getTwitterStatus: (text, url)->
+				urllen = shortUrlLength
+				if url.indexOf('https') > -1
+					urllen = shortUrlLengthHttps
+				availableTextChars = 140 - (urllen + 1)
+
+				if text.length > availableTextChars
+					extraTrim = 1 # ellipses
+					if ops.addCurlyQuotes then extraTrim += 2
+					text = text.substring(0, availableTextChars - extraTrim)
+					text = "#{text}&#8230"
+				
+				if ops.addCurlyQuotes
+					text = "&#8220#{text}&#8221"
+				return text
+			getTweetUrl: (status, url)->
+				text = encodeURI(status)
+				url = encodeURI($.trim(url))
+				baseUrl = "https://twitter.com/intent/tweet"
+				if ops.useTwitterButton
+					baseUrl = "https://twitter.com/share"
+				href = "#{baseUrl}?text=#{text}&url=#{url}"
+			createTweetLink: (twitterUrl, linkLabel)->
+				$link = $("<a href='#{twitterUrl}'>#{linkLabel}</a>")
+				if ops.useTwitterButton then $link.addClass("twitter-share-button")
+				return $link
+			placeTweetLink: ($link)->
+				$(this).append("&nbsp;").append($link)
+		, options)
+		
+		createTwitterLinks = ->
+			$tweets.each ->
+				url = $.proxy(ops.getTweetSourceUrl, this)()
+				text = $.trim($.proxy(ops.getTweetText, this)(url))
+				status = $.proxy(ops.getTwitterStatus, this)(text, url)
+				linkUrl = $.proxy(ops.getTweetUrl, this)(status, url)
+				$link = $.proxy(ops.createTweetLink, this)(linkUrl, ops.tweetLabel)
+				if $link?.length
+					$.proxy(ops.placeTweetLink, this)($link)
+			
+			if twttr?
+				twttr.widgets.load()
+			else
+				$.getScript 'https://platform.twitter.com/widgets.js', ->
+
+			return $tweets
+
+		if ops.updateUrlLengthFromTwitter
+			$.getJSON "https://api.twitter.com/1/help/configuration.json?callback=?", (data)=>
+				shortUrlLength = data.short_url_length
+				shortUrlLengthHttps = data.short_url_length_https
+				createTwitterLinks()
+		else
+			createTwitterLinks()
+
+		
+
+

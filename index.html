@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>JQuery ProQuo</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/prettify.css">
+
+    <script src="js/libs/jquery-1.6.2.min.js"></script>
+    <script src="js/libs/prettify.js"></script>
+    <script src="js/libs/bootstrap-twipsy.js"></script>
+    <script src="js/jquery.proquo.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        
+        $('a').twipsy()
+
+        // standard & long quote
+        $("blockquote.tweet").proQuo();
+
+        // twitter button
+        $('blockquote#davinci').proQuo({
+            useTwitterButton: true
+        });
+
+        $('blockquote#curly').proQuo({
+            addCurlyQuotes: true
+        });    
+
+        // custom UI
+        $("div#custom-quote").proQuo({
+            getTweetText: function() {
+                // return the quote and the author
+                return $(this).find("p").text() + " - " + $(this).find("small").text()
+            },
+            createTweetLink: function(twitterUrl, linkLabel) {
+                // set the link href to the tweet url
+                $(this).find("a").attr("href", twitterUrl);
+            },
+            getTweetSourceUrl: function() { 
+                // no source url for this tweet
+                return "";
+            }
+        });
+
+        $('blockquote#scott-adams').proQuo({
+            getTweetSourceUrl: function() {
+                // set tweet source link to the dilbert principle wiki page
+                return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+            }
+        });
+
+        // twitter button
+        $("blockquote.tweet-button").proQuo({
+            useTwitterButton: true,
+            addCurlyQuotes: true
+        })
+    });
+    </script>
+
+</head>
+<body>
+
+    <div class="topbar">
+      <div class="fill">
+        <div class="container">
+          <a class="brand" href="#">jQuery <em>ProQuo</em></a>
+<!--           <ul class="nav">
+            <li class="active"><a href="#basic">Basics</a></li>
+            <li><a href="#config">Configuration Options</a></li>
+          </ul>
+ -->          
+          <ul class="nav secondary-nav">
+            <li>
+                <button class="btn primary">Download on Github</button>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            
+
+            <section id="basic">
+                <div class="page-header">
+                    <h1>Basics <small>Turn any part of your HTML content into a &ldquo;tweetable&rdquo; quote.</small></h1>
+                </div>              
+                <p>
+                jQuery ProQuo is a quick way to encourage your readers to spread your content through twitter. Simple define the regions
+                in your markup that you would like to be tweetable and ProQuo will handle the rest.
+                </p>
+                <p>For example, click the "Tweet this" link in the quote below:
+                <blockquote class="tweet">
+                    jQuery ProQuo: Turn any part of your content into &ldquo;tweetable&rdquo; quotes.
+                </blockquote>
+                ProQuoe will auto truncate tweets that are longer than 140 characters (includees source link length):
+                <blockquote class="tweet">
+                Any intelligent fool can make things bigger and more complex... It takes a touch of genius - and a lot of courage to move in the opposite direction.
+                <small>Albert Einstein</small>
+                </blockquote>
+                And here's the code for the above examples:
+                <pre class="prettyprint">$('blockquote.tweet').proQuo()</pre>
+                Easy right?
+                </p>
+
+
+                <p>
+                    By default ProQuo does a few things for you:
+                    <ul>
+                        <li>Automatically determines propert text length and adds ellipsis in the tweet if the text needs to be truncated</li>
+                        <li>Includes a link back to the page that the quote was tweeted from (by default)</li>
+                        <li>Adds a &ldquo;Tweet this&rdquo; link to the tweetable element</li>
+                        <li>Auto-loads the <a href="https://platform.twitter.com/widgets.js">Twitter widgets script</a> if it's not already available on the page. </li>
+                    </ul>
+                </p>
+
+            </section>
+            <section id="examples">
+                <div class="page-header">
+                    <h1>Customization examples</h1>
+                </div>   
+                <p>
+                All of the default behavior is easily customizable. Here are a few more examples with some customization:
+                <h4>Auto-add curly quotes to tweet</h4>
+                <p>
+                    <blockquote id="curly">jQuery ProQuo helps you spread your content on Twitter</blockquote>
+<pre class="prettyprint lang=javascript">
+$('blockquote#curly').proQuo({
+    addCurlyQuotes: true
+});
+</pre>                
+                </p>
+
+                <h4>Use the offical twitter button</h4>
+                <p>
+                    <blockquote id="davinci">&ldquo;Simplicity is the ultimate sophistication.&rdquo; - Lenoardo da Vinci</blockquote>
+                    <h5>The code</h5>
+<pre class="prettyprint lang=javascript">
+$('blockquote#davinci').proQuo({
+    useTwitterButton: true
+});
+</pre>
+                </p>
+
+                <h4>Working with a custom design</h4>
+
+                <div id="custom-quote">
+                    <img src="images/spock.png">
+                    <blockquote id="custom">
+                        <div class="arrow-left-border"></div>
+                        <div class="arrow-left"></div>
+                        <p>&ldquo;Do or do not, there is no try.&rdquo;</p>
+                        <small>Albus Dumbledore</small>
+                        <a href="#" data-placement="below" rel='twipsy' title='Tweet this!'><img src="images/tweet.png"></a>
+                    </blockquote>
+                </div>
+
+                <h5>The custom markup</h5>
+<pre class="prettyprint lang-html">
+&lt;div id=&quot;custom-quote&quot;&gt;
+    &lt;img src=&quot;images/spock.png&quot;&gt;
+    &lt;blockquote id=&quot;custom&quot;&gt;
+        &lt;div class=&quot;arrow-left-border&quot;&gt;&lt;/div&gt;
+        &lt;div class=&quot;arrow-left&quot;&gt;&lt;/div&gt;
+        &lt;p&gt;&amp;ldquo;Do or do not, there is no try.&amp;rdquo;&lt;/p&gt;
+        &lt;small&gt;Albus Dumbledore&lt;/small&gt;
+        &lt;a href=&quot;#&quot; data-placement=&quot;below&quot; rel=&#39;twipsy&#39; title=&#39;Tweet this!&#39;&gt;&lt;img src=&quot;images/tweet.png&quot;&gt;&lt;/a&gt;
+    &lt;/blockquote&gt;
+&lt;/div&gt;
+</pre>
+
+                <h5>The code</h5>
+<pre class="prettyprint lang-javascript">
+$("div#custom-quote").proQuo({
+    getTweetText: function() {
+        // return the quote and the author
+        return $(this).find("p").text() + " - " + $(this).find("small").text()
+    },
+    createTweetLink: function(twitterUrl, linkLabel) {
+        // set the link href to the tweet url
+        $(this).find("a").attr("href", twitterUrl);
+    },
+    getTweetSourceUrl: function() { 
+        // no source url for this tweet
+        return "";
+    }
+});
+</pre>
+
+                <h4>Override the link-back behavior</h4>
+                <blockquote id="scott-adams">
+                &ldquo;Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.&rdquo; - Scott Adams
+                </blockquote>
+
+<pre class="prettyprint lang-javascript">
+$('blockquote#scott-adams').proQuo({
+    getTweetSourceUrl: function() {
+        // set tweet source link to the dilbert principle wiki page
+        return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+    }
+});
+</pre>
+                <div class="alert-message block-message warning">
+                Note: The default <code>getTweetSourceUrl</code> behavior may not behave correctly when testing locally because it uses <code>window.location</code> which returns an invalid URL when on your local machine.
+                </div>
+            
+            </section>
+
+
+            <section id="config">
+                <div class="page-header">
+                    <h1>All configuration options</h1>
+                </div>
+                <h4>Variables</h4>
+                <dl>
+                    <dt>tweetLabel</dt> 
+                    <dd>The label that will be used in the tweet link. Defaults to &ldquo;Tweet this&rdquo;.</dd>
+                    <dt>addCurlyQuotes</dt>
+                    <dd>If set to true, curly quotes will be wrapped around the tweet text.</dd>
+                    <dt>updateUrlLengthFromTwitter</dt>
+                    <dd>If set to true, ProQuo will call the <a href="https://dev.twitter.com/docs/api/1/get/help/configuration">Twitter configuration API</a> to determine the appropriate short URL length (defaults to false). Used to appropriately truncate longer quotes.</dd>
+                    <dt>useTwitterButton</dt>
+                    <dd>If set to true, ProQuo will load Twitter's standard <a href="http://twitter.com/about/resources/buttons">sharing buttons</a>.</dd>
+                </dl>
+
+                <h4>Functions overrides</h4>
+                <dl>
+                    <dt>getTweetSourceUrl</dt> 
+                    <dd>Returns the link-back URL to be included in the tweet. Defaults to <code>window.location</code></dd>
+
+                    <dt>getTweetText</dt> 
+                    <dd>Returns the text to be tweeted. Defaults to <code>$(this).text()</code></dd>
+
+                    <dt>getTwitterStatus(text, url)</dt> 
+                    <dd>
+                        Returns the actual tweet status text. Defaults to the tweet text + the link-back URL. This function
+                        is also responsible for truncating the tweet and add ellipsis if necessary.
+                    </dd>
+                    
+                    <dt>getTweetUrl(status, url)</dt> 
+                    <dd>Returns the twitter share url (default to <a href="https://dev.twitter.com/docs/intents">Twitter Intents</a> format)</dd>
+                    
+                    <dt>createTweetLink(twitterUrl, linkLabel)</dt> 
+                    <dd>                        
+                        Returns the link object to be added to the tweetable area. Defaults to 
+                        <code>$("&lt;a href='#{twitterUrl}'&gt;#{linkLabel}&lt;/a&gt;")</code>
+                    </dd>
+
+                    <dt>placeTweetLink($link)</dt>
+                    <dd></dd>
+                </dl>
+            </section>
+        </div><!-- /content -->
+
+        <footer>
+            <p>Created by <a href="https://twitter.com/#!/wmdmark">@wmdmark</a>. Origional idea by <a href="https://twitter.com/#!/geoff_stevens">@geoff_stevens</a></p>
+        </footer>
+
+    </div><!-- /container -->
+
+    <script>$(function () { prettyPrint() })</script>
+
+
+</body>
+</html>
