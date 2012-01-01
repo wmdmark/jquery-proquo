@@ -17,12 +17,14 @@
     <script src="js/libs/jquery-1.6.2.min.js"></script>
     <script src="js/libs/prettify.js"></script>
     <script src="js/libs/bootstrap-twipsy.js"></script>
+    <script src="js/libs/bootstrap-scrollspy.js"></script>
     <script src="js/jquery.proquo.js"></script>
 
     <script type="text/javascript">
     $(document).ready(function(){
         
-        $('a').twipsy()
+        $('a').twipsy();
+        $('body > .topbar').scrollSpy()
 
         // standard & long quote
         $("blockquote.tweet").proQuo();
@@ -34,7 +36,7 @@
 
         $('blockquote#curly').proQuo({
             addCurlyQuotes: true
-        });    
+        });
 
         // custom UI
         $("div#custom-quote").proQuo({
@@ -64,24 +66,29 @@
             useTwitterButton: true,
             addCurlyQuotes: true
         })
+
+        $("#btnGithub").bind("click", function(e) {
+            e.preventDefault();
+            window.location = $(this).data("url"); 
+        });
     });
     </script>
 
 </head>
 <body>
 
-    <div class="topbar">
+    <div class="topbar" data-scrollspy="scrollspy">
       <div class="fill">
         <div class="container">
           <a class="brand" href="#">jQuery <em>ProQuo</em></a>
-<!--           <ul class="nav">
+           <ul class="nav">
             <li class="active"><a href="#basic">Basics</a></li>
+            <li><a href="#examples">Examples</a></li>
             <li><a href="#config">Configuration Options</a></li>
           </ul>
- -->          
           <ul class="nav secondary-nav">
             <li>
-                <button class="btn primary">Download on Github</button>
+                <button id="btnGithub" class="btn primary" data-url="https://github.com/wmdmark/jquery-proquo">Download on Github</button>
             </li>
           </ul>
 
@@ -255,11 +262,14 @@ $('blockquote#scott-adams').proQuo({
                     <dt>createTweetLink(twitterUrl, linkLabel)</dt> 
                     <dd>                        
                         Returns the link object to be added to the tweetable area. Defaults to 
-                        <code>$("&lt;a href='#{twitterUrl}'&gt;#{linkLabel}&lt;/a&gt;")</code>
+                        <code>$("&lt;a href='#{twitterUrl}'&gt;#{linkLabel}&lt;/a&gt;")</code>.<br>
+                        <em>Note: If no link object is returned then placeTweetLink is not called.</em>
                     </dd>
 
                     <dt>placeTweetLink($link)</dt>
-                    <dd></dd>
+                    <dd>
+                    Given the jQuery link object, this function places the link on the page. Defaults to <code>$(this).append("&amp;nbsp;").append($link);</code>
+                    </dd>
                 </dl>
             </section>
         </div><!-- /content -->
