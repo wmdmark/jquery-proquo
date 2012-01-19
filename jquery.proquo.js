@@ -13,7 +13,7 @@
         updateUrlLengthFromTwitter: false,
         useTwitterButton: false,
         getTweetSourceUrl: function() {
-          return document.URL;
+          return window.location.href;
         },
         getTweetText: function() {
           return $.trim($(this).text());
