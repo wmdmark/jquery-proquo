@@ -10,7 +10,7 @@ $.fn.extend
 			updateUrlLengthFromTwitter: no
 			useTwitterButton: no
 			getTweetSourceUrl: ->
-				return window.location.pathname
+				return document.URL
 			getTweetText: ->
 				return $.trim($(this).text())
 			getTwitterStatus: (text, url)->
