@@ -38,7 +38,8 @@
           url = encodeURI($.trim(url));
           baseUrl = "https://twitter.com/intent/tweet";
           if (ops.useTwitterButton) baseUrl = "https://twitter.com/share";
-          return href = "" + baseUrl + "?text=" + text + "&url=" + url;
+          href = "" + baseUrl + "?text=" + text + "&url=" + url;
+          return href;
         },
         createTweetLink: function(twitterUrl, linkLabel) {
           var $link;

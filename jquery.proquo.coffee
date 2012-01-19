@@ -35,6 +35,7 @@ $.fn.extend
 				if ops.useTwitterButton
 					baseUrl = "https://twitter.com/share"
 				href = "#{baseUrl}?text=#{text}&url=#{url}"
+				return href
 			createTweetLink: (twitterUrl, linkLabel)->
 				$link = $("<a href='#{twitterUrl}'>#{linkLabel}</a>")
 				if ops.useTwitterButton then $link.addClass("twitter-share-button")
