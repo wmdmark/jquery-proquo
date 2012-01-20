@@ -55,10 +55,11 @@
             }
         });
 
-        $('blockquote#scott-adams').proQuo({
+        var adamsURL = "http://en.wikipedia.org/wiki/The_Dilbert_principle";
+        $('#scott-adams').proQuo({
             getTweetSourceUrl: function() {
                 // set tweet source link to the dilbert principle wiki page
-                return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+                return adamsURL;
             }
         });
 
@@ -70,14 +71,9 @@
         $("#url-short").proQuo({
             getTweetSourceUrl: function(callback) {
                 // this is using the jquery bitly plugin
-                try {
-                    bitly.shorten("http://en.wikipedia.org/wiki/The_Dilbert_principle", function(shortUrl){ 
-                        callback(shortUrl); 
-                    });
-                } catch (e) {
-                    callback(window.location.href)
-                }
-
+                bitly.shorten(adamsURL, function(shortUrl){ 
+                    callback(shortUrl); 
+                });
             }
         });
 
@@ -250,10 +246,12 @@ $('blockquote#scott-adams').proQuo({
                 </blockquote>
 
 <pre class="prettyprint lang-javascript">
-$('blockquote#scott-adams').proQuo({
-    getTweetSourceUrl: function() {
-        // set tweet source link to the dilbert principle wiki page
-        return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+$("#url-short").proQuo({
+    getTweetSourceUrl: function(callback) {
+        // this is using the jquery bitly plugin
+        bitly.shorten(adamsURL, function(shortUrl){ 
+            callback(shortUrl); 
+        });
     }
 });
 </pre>
