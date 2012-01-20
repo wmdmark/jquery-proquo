@@ -18,6 +18,7 @@
     <script src="js/libs/prettify.js"></script>
     <script src="js/libs/bootstrap-twipsy.js"></script>
     <script src="js/libs/bootstrap-scrollspy.js"></script>
+    <script src="js/libs/jquery.bitly.js"></script>
     <script src="js/jquery.proquo.js"></script>
 
     <script type="text/javascript">
@@ -58,6 +59,25 @@
             getTweetSourceUrl: function() {
                 // set tweet source link to the dilbert principle wiki page
                 return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+            }
+        });
+
+        var bitly = new $.Bitly({
+            login: 'proquodemo',
+            key: 'R_5cbb9450cad38a99cb2c9289d37218e1'
+        })
+
+        $("#url-short").proQuo({
+            getTweetSourceUrl: function(callback) {
+                // this is using the jquery bitly plugin
+                try {
+                    bitly.shorten("http://en.wikipedia.org/wiki/The_Dilbert_principle", function(shortUrl){ 
+                        callback(shortUrl); 
+                    });
+                } catch (e) {
+                    callback(window.location.href)
+                }
+
             }
         });
 
@@ -127,7 +147,10 @@
                     By default ProQuo does a few things for you:
                     <ul>
                         <li>Automatically determines proper text length and adds ellipsis in the tweet if the text needs to be truncated</li>
-                        <li>Includes a link back to the page that the quote was tweeted from (by default)</li>
+                        <li>
+                            Includes a link back to the page that the quote was tweeted from (by default).<br>
+                            <em>Note: Twitter auto-shortens this link so they aren't taking up more than 20 characters.</em>
+                        </li>
                         <li>Adds a &ldquo;Tweet this&rdquo; link to the tweetable element</li>
                         <li>Auto-loads the <a href="https://platform.twitter.com/widgets.js">Twitter widgets script</a> if it's not already available on the page. </li>
                     </ul>
@@ -219,8 +242,24 @@ $('blockquote#scott-adams').proQuo({
     }
 });
 </pre>
+
+
+                <h4>Using a URL shortner</h4>
+                <blockquote id="url-short">
+                &ldquo;Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.&rdquo; - Scott Adams
+                </blockquote>
+
+<pre class="prettyprint lang-javascript">
+$('blockquote#scott-adams').proQuo({
+    getTweetSourceUrl: function() {
+        // set tweet source link to the dilbert principle wiki page
+        return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+    }
+});
+</pre>
+
                 <div class="alert-message block-message warning">
-                Note: The default <code>getTweetSourceUrl</code> behavior may not behave correctly when testing locally because it uses <code>window.location</code> which returns an invalid URL when on your local machine.
+                Note: if You are testing ProQuo locally the link-back functionality won't show up in the tweet.
                 </div>
             
             </section>

@@ -12,8 +12,8 @@
         addCurlyQuotes: false,
         updateUrlLengthFromTwitter: false,
         useTwitterButton: false,
-        getTweetSourceUrl: function() {
-          return window.location.href;
+        getTweetSourceUrl: function(callback) {
+          return callback(window.location.href);
         },
         getTweetText: function() {
           return $.trim($(this).text());
@@ -52,16 +52,19 @@
         }
       }, options);
       createTwitterLinks = function() {
-        $tweets.each(function() {
-          var $link, linkUrl, status, text, url;
-          url = $.proxy(ops.getTweetSourceUrl, this)();
-          text = $.trim($.proxy(ops.getTweetText, this)(url));
-          status = $.proxy(ops.getTwitterStatus, this)(text, url);
-          linkUrl = $.proxy(ops.getTweetUrl, this)(status, url);
-          $link = $.proxy(ops.createTweetLink, this)(linkUrl, ops.tweetLabel);
-          if ($link != null ? $link.length : void 0) {
-            return $.proxy(ops.placeTweetLink, this)($link);
-          }
+        $tweets.each(function(i, el) {
+          var $el;
+          $el = $(el);
+          return $.proxy(ops.getTweetSourceUrl, $el)(function(url) {
+            var $link, linkUrl, status, text;
+            text = $.trim($.proxy(ops.getTweetText, $el)(url));
+            status = $.proxy(ops.getTwitterStatus, $el)(text, url);
+            linkUrl = $.proxy(ops.getTweetUrl, $el)(status, url);
+            $link = $.proxy(ops.createTweetLink, $el)(linkUrl, ops.tweetLabel);
+            if ($link != null ? $link.length : void 0) {
+              return $.proxy(ops.placeTweetLink, $el)($link);
+            }
+          });
         });
         if (typeof twttr !== "undefined" && twttr !== null) {
           twttr.widgets.load();
