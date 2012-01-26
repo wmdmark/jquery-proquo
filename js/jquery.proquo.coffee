@@ -5,7 +5,7 @@ $.fn.extend
 		shortUrlLengthHttps = 21
 		$tweets = $(this)
 		ops = $.extend(
-			tweetLabel: "Tweet this"
+			tweetLabel: "Tweet&nbsp;this"
 			addCurlyQuotes: no
 			updateUrlLengthFromTwitter: no
 			useTwitterButton: no

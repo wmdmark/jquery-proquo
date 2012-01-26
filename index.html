@@ -49,17 +49,17 @@
                 // set the link href to the tweet url
                 $(this).find("a").attr("href", twitterUrl);
             },
-            getTweetSourceUrl: function() { 
+            getTweetSourceUrl: function(callback) { 
                 // no source url for this tweet
-                return "";
+                callback("");
             }
         });
 
         var adamsURL = "http://en.wikipedia.org/wiki/The_Dilbert_principle";
         $('#scott-adams').proQuo({
-            getTweetSourceUrl: function() {
+            getTweetSourceUrl: function(callback) {
                 // set tweet source link to the dilbert principle wiki page
-                return adamsURL;
+                callback(adamsURL);
             }
         });
 
@@ -145,7 +145,7 @@
                         <li>Automatically determines proper text length and adds ellipsis in the tweet if the text needs to be truncated</li>
                         <li>
                             Includes a link back to the page that the quote was tweeted from (by default).<br>
-                            <em>Note: Twitter auto-shortens this link so they aren't taking up more than 20 characters.</em>
+                            <em>Note: Twitter auto-shortens this link so they aren't taking up more than 20 characters even if they appear longer in the tweet window.</em>
                         </li>
                         <li>Adds a &ldquo;Tweet this&rdquo; link to the tweetable element</li>
                         <li>Auto-loads the <a href="https://platform.twitter.com/widgets.js">Twitter widgets script</a> if it's not already available on the page. </li>
@@ -218,9 +218,9 @@ $("div#custom-quote").proQuo({
         // set the link href to the tweet url
         $(this).find("a").attr("href", twitterUrl);
     },
-    getTweetSourceUrl: function() { 
+    getTweetSourceUrl: function(callback) { 
         // no source url for this tweet
-        return "";
+        callback("");
     }
 });
 </pre>
@@ -231,10 +231,11 @@ $("div#custom-quote").proQuo({
                 </blockquote>
 
 <pre class="prettyprint lang-javascript">
-$('blockquote#scott-adams').proQuo({
-    getTweetSourceUrl: function() {
+var adamsURL = "http://en.wikipedia.org/wiki/The_Dilbert_principle";
+$('#scott-adams').proQuo({
+    getTweetSourceUrl: function(callback) {
         // set tweet source link to the dilbert principle wiki page
-        return "http://en.wikipedia.org/wiki/The_Dilbert_principle"
+        callback(adamsURL);
     }
 });
 </pre>
@@ -246,6 +247,12 @@ $('blockquote#scott-adams').proQuo({
                 </blockquote>
 
 <pre class="prettyprint lang-javascript">
+// using https://github.com/gumayunov/jquery-bitly-plugin
+var bitly = new $.Bitly({
+    login: bitlyLogin,
+    key: bitlyKey
+})
+
 $("#url-short").proQuo({
     getTweetSourceUrl: function(callback) {
         // this is using the jquery bitly plugin
@@ -281,8 +288,10 @@ $("#url-short").proQuo({
 
                 <h4>Function overrides</h4>
                 <dl>
-                    <dt>getTweetSourceUrl</dt> 
-                    <dd>Returns the link-back URL to be included in the tweet. Defaults to <code>window.location</code></dd>
+                    <dt>getTweetSourceUrl(callback)</dt> 
+                    <dd>Returns the link-back URL via the given callback to be included in the tweet. Defaults to <code>callback(window.location.href)</code>.<br>
+                    <em>The callback approach here is to allow for things like link shortening or other asynchronous processing.</em>
+                    </dd>
 
                     <dt>getTweetText</dt> 
                     <dd>Returns the text to be tweeted. Defaults to <code>$(this).text()</code></dd>

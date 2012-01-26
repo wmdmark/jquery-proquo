@@ -37,6 +37,9 @@ section {
 }
 
 blockquote {
+	font-size: 1.15em;
+	line-height: 1.4em;
+	margin-top: 10px;
 }
 
 .nav li button.btn.primary {
@@ -60,7 +63,7 @@ div#custom-quote {
 
 blockquote#custom {
 	position: absolute;
-	width: 280px;
+	width: 300px;
 	height: 35px;
 	top: 16px;
 	left: 59px;

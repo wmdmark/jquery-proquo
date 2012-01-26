@@ -8,7 +8,7 @@
       shortUrlLengthHttps = 21;
       $tweets = $(this);
       ops = $.extend({
-        tweetLabel: "Tweet this",
+        tweetLabel: "Tweet&nbsp;this",
         addCurlyQuotes: false,
         updateUrlLengthFromTwitter: false,
         useTwitterButton: false,
