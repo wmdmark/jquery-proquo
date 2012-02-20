@@ -1,0 +1,10 @@
+*.svn-base
+*/.svn
+*.log
+.svn
+*.swp
+.DS_Store
+._*
+.com.*
+*.json
+*.psql

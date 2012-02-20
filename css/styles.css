@@ -2,24 +2,7 @@ html, body {
 	background-color: #eee;
 }
 
-body {
-	padding-top: 40px;
-/* 40px to make the container go all the way to the bottom of the topbar */
-}
 
-.container > footer p {
-	text-align: center;
-/* center align it with the container */
-}
-
-.container {
-	width: 820px;
-/* downsize our container to make the content feel a bit tighter and more cohesive. NOTE: this removes two full columns from the grid, meaning you only go to 14 columns and not 16. */
-}
-
-section {
-
-}
 
 /* The white background content wrapper */
 
@@ -36,13 +19,18 @@ section {
 	box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
+footer {
+	text-align: center;
+	margin: 10px 0px;
+}
+
 blockquote {
 	font-size: 1.15em;
 	line-height: 1.4em;
 	margin-top: 10px;
 }
 
-.nav li button.btn.primary {
+.nav li button.btn-info {
 	margin-top: 5px;	
 }
 
@@ -50,15 +38,10 @@ a {
 	color: #1f9ad2;
 }
 
-.topbar .brand em {
-	color: #1f9ad2;
-	font-weight: normal;
-	font-style: normal;
-}
+
 
 div#custom-quote {
 	position: relative;
-	
 }
 
 blockquote#custom {

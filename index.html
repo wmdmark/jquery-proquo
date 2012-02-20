@@ -14,9 +14,9 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/prettify.css">
 
-    <script src="js/libs/jquery-1.6.2.min.js"></script>
+    <script src="js/libs/jquery-1.7.1.min.js"></script>
     <script src="js/libs/prettify.js"></script>
-    <script src="js/libs/bootstrap-twipsy.js"></script>
+    <script src="js/libs/bootstrap-tooltip.js"></script>
     <script src="js/libs/bootstrap-scrollspy.js"></script>
     <script src="js/libs/jquery.bitly.js"></script>
     <script src="js/jquery.proquo.js"></script>
@@ -24,8 +24,7 @@
     <script type="text/javascript">
     $(document).ready(function(){
         
-        $('a').twipsy();
-        $('body > .topbar').scrollSpy()
+        $('a.tooltip').tooltip();
 
         // standard & long quote
         $("blockquote.tweet").proQuo();
@@ -91,26 +90,25 @@
     </script>
 
 </head>
-<body>
+<body data-spy="scroll">
 
-    <div class="topbar" data-scrollspy="scrollspy">
-      <div class="fill">
-        <div class="container">
-          <a class="brand" href="#">jQuery <em>ProQuo</em></a>
-           <ul class="nav">
-            <li class="active"><a href="#basic">Basics</a></li>
-            <li><a href="#examples">Examples</a></li>
-            <li><a href="#config">Configuration Options</a></li>
-          </ul>
-          <ul class="nav secondary-nav">
-            <li>
-                <button id="btnGithub" class="btn primary" data-url="https://github.com/wmdmark/jquery-proquo">Download on Github</button>
-            </li>
-          </ul>
-
+    <div id="navbar" class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand" href="#">jQuery <em>ProQuo</em></a>
+                <ul class="nav">
+                    <li class="active"><a href="#basic">Basics</a></li>
+                    <li><a href="#examples">Examples</a></li>
+                    <li><a href="#config">Configuration Options</a></li>
+                </ul>
+                <ul class="nav pull-right">
+                    <li>
+                        <button id="btnGithub" class="btn-info" data-url="https://github.com/wmdmark/jquery-proquo">Download on Github</button>
+                    </li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
+    </div>    
 
     <div class="container">
         <div class="content">
@@ -162,7 +160,7 @@
                 <h4>Auto-add curly quotes to tweet</h4>
                 <p>
                     <blockquote id="curly">jQuery ProQuo helps you spread your content on Twitter</blockquote>
-<pre class="prettyprint lang=javascript">
+<pre class="prettyprint linenums">
 $('blockquote#curly').proQuo({
     addCurlyQuotes: true
 });
@@ -173,7 +171,7 @@ $('blockquote#curly').proQuo({
                 <p>
                     <blockquote id="davinci">&ldquo;Simplicity is the ultimate sophistication.&rdquo; - Leonardo da Vinci</blockquote>
                     <h5>The code</h5>
-<pre class="prettyprint lang=javascript">
+<pre class="prettyprint linenums">
 $('blockquote#davinci').proQuo({
     useTwitterButton: true
 });
@@ -189,12 +187,12 @@ $('blockquote#davinci').proQuo({
                         <div class="arrow-left"></div>
                         <p>&ldquo;Do or do not, there is no try.&rdquo;</p>
                         <small>Albus Dumbledore</small>
-                        <a href="#" data-placement="below" rel='twipsy' title='Tweet this!'><img src="images/tweet.png"></a>
+                        <a href="#" data-placement="below" rel='tooltip' title='Tweet this!'><img src="images/tweet.png"></a>
                     </blockquote>
                 </div>
 
                 <h5>The custom markup</h5>
-<pre class="prettyprint lang-html">
+<pre class="prettyprint linenums">
 &lt;div id=&quot;custom-quote&quot;&gt;
     &lt;img src=&quot;images/spock.png&quot;&gt;
     &lt;blockquote id=&quot;custom&quot;&gt;
@@ -208,7 +206,7 @@ $('blockquote#davinci').proQuo({
 </pre>
 
                 <h5>The code</h5>
-<pre class="prettyprint lang-javascript">
+<pre class="prettyprint linenums">
 $("div#custom-quote").proQuo({
     getTweetText: function() {
         // return the quote and the author
@@ -230,7 +228,7 @@ $("div#custom-quote").proQuo({
                 &ldquo;Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.&rdquo; - Scott Adams
                 </blockquote>
 
-<pre class="prettyprint lang-javascript">
+<pre class="prettyprint linenums">
 var adamsURL = "http://en.wikipedia.org/wiki/The_Dilbert_principle";
 $('#scott-adams').proQuo({
     getTweetSourceUrl: function(callback) {
@@ -246,7 +244,7 @@ $('#scott-adams').proQuo({
                 &ldquo;Creativity is allowing yourself to make mistakes. Art is knowing which ones to keep.&rdquo; - Scott Adams
                 </blockquote>
 
-<pre class="prettyprint lang-javascript">
+<pre class="prettyprint linenums">
 // using https://github.com/gumayunov/jquery-bitly-plugin
 var bitly = new $.Bitly({
     login: bitlyLogin,
