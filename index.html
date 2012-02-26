@@ -27,7 +27,7 @@
         $('a.tooltip').tooltip();
 
         // standard & long quote
-        $("blockquote.tweet").proQuo();
+        $(".tweet").proQuo();
 
         // twitter button
         $('blockquote#davinci').proQuo({
@@ -80,12 +80,8 @@
         $("blockquote.tweet-button").proQuo({
             useTwitterButton: true,
             addCurlyQuotes: true
-        })
-
-        $("#btnGithub").bind("click", function(e) {
-            e.preventDefault();
-            window.location = $(this).data("url"); 
         });
+
     });
     </script>
 
@@ -95,7 +91,7 @@
     <div id="navbar" class="navbar navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
-                <a class="brand" href="#">jQuery <em>ProQuo</em></a>
+                <a class="brand" href="#">jQuery ProQuo</a>
                 <ul class="nav">
                     <li class="active"><a href="#basic">Basics</a></li>
                     <li><a href="#examples">Examples</a></li>
@@ -103,7 +99,7 @@
                 </ul>
                 <ul class="nav pull-right">
                     <li>
-                        <button id="btnGithub" class="btn-info" data-url="https://github.com/wmdmark/jquery-proquo">Download on Github</button>
+
                     </li>
                 </ul>
             </div>
@@ -111,12 +107,22 @@
     </div>    
 
     <div class="container">
+
+
+
         <div class="content">
             
+<div class="hero-unit">
+  <h1>jQuery ProQuo</h1>
+  <p class="tweet">Turn any part of your HTML content into &ldquo;tweetable&rdquo; quotes.</p>
+  <p>
+    <a id="btnGithub" class="btn btn-large btn-primary" href="https://github.com/wmdmark/jquery-proquo">Download on Github</a>    
+  </p>
+</div>            
 
             <section id="basic">
                 <div class="page-header">
-                    <h1>Basics <small>Turn any part of your HTML content into a &ldquo;tweetable&rdquo; quote.</small></h1>
+                    <h1>Basics</h1>
                 </div>              
                 <p>
                 jQuery ProQuo is a quick way to encourage your readers to spread your content through twitter. Simply define the regions
@@ -132,7 +138,7 @@
                 <small>Albert Einstein</small>
                 </blockquote>
                 And here's the code for the above examples:
-                <pre class="prettyprint">$('blockquote.tweet').proQuo()</pre>
+                <pre class="prettyprint linenums">$('blockquote.tweet').proQuo()</pre>
                 Easy right?
                 </p>
 
@@ -187,7 +193,7 @@ $('blockquote#davinci').proQuo({
                         <div class="arrow-left"></div>
                         <p>&ldquo;Do or do not, there is no try.&rdquo;</p>
                         <small>Albus Dumbledore</small>
-                        <a href="#" data-placement="below" rel='tooltip' title='Tweet this!'><img src="images/tweet.png"></a>
+                        <a href="#" data-placement="below" title='Tweet this!'><img src="images/tweet.png"></a>
                     </blockquote>
                 </div>
 
@@ -270,7 +276,7 @@ $("#url-short").proQuo({
 
             <section id="config">
                 <div class="page-header">
-                    <h1>All configuration options</h1>
+                    <h1>Configuration options</h1>
                 </div>
                 <h4>Variables</h4>
                 <dl>
