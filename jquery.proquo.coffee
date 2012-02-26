@@ -5,12 +5,12 @@ $.fn.extend
 		shortUrlLengthHttps = 21
 		$tweets = $(this)
 		ops = $.extend(
-			tweetLabel: "Tweet this"
+			tweetLabel: "Tweet&nbsp;this"
 			addCurlyQuotes: no
 			updateUrlLengthFromTwitter: no
 			useTwitterButton: no
-			getTweetSourceUrl: ->
-				return window.location.href
+			getTweetSourceUrl: (callback)->
+				callback(window.location.href)
 			getTweetText: ->
 				return $.trim($(this).text())
 			getTwitterStatus: (text, url)->
@@ -45,14 +45,15 @@ $.fn.extend
 		, options)
 		
 		createTwitterLinks = ->
-			$tweets.each ->
-				url = $.proxy(ops.getTweetSourceUrl, this)()
-				text = $.trim($.proxy(ops.getTweetText, this)(url))
-				status = $.proxy(ops.getTwitterStatus, this)(text, url)
-				linkUrl = $.proxy(ops.getTweetUrl, this)(status, url)
-				$link = $.proxy(ops.createTweetLink, this)(linkUrl, ops.tweetLabel)
-				if $link?.length
-					$.proxy(ops.placeTweetLink, this)($link)
+			$tweets.each (i, el)->
+				$el = $(el)
+				$.proxy(ops.getTweetSourceUrl, $el) (url)->
+					text = $.trim($.proxy(ops.getTweetText, $el)(url))
+					status = $.proxy(ops.getTwitterStatus, $el)(text, url)
+					linkUrl = $.proxy(ops.getTweetUrl, $el)(status, url)
+					$link = $.proxy(ops.createTweetLink, $el)(linkUrl, ops.tweetLabel)
+					if $link?.length
+						$.proxy(ops.placeTweetLink, $el)($link)
 			
 			if twttr?
 				twttr.widgets.load()
@@ -60,7 +61,7 @@ $.fn.extend
 				$.getScript 'https://platform.twitter.com/widgets.js', ->
 
 			return $tweets
-
+		
 		if ops.updateUrlLengthFromTwitter
 			$.getJSON "https://api.twitter.com/1/help/configuration.json?callback=?", (data)=>
 				shortUrlLength = data.short_url_length
