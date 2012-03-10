@@ -25,6 +25,9 @@
     $(document).ready(function(){
         
         $('a.tooltip').tooltip();
+        $('p.hero-tweet').proQuo({
+            useTwitterButton: true
+        })
 
         // standard & long quote
         $(".tweet").proQuo();
@@ -112,13 +115,13 @@
 
         <div class="content">
             
-<div class="hero-unit">
-  <h1>jQuery ProQuo</h1>
-  <p class="tweet">Turn any part of your HTML content into &ldquo;tweetable&rdquo; quotes.</p>
-  <p>
-    <a id="btnGithub" class="btn btn-large btn-primary" href="https://github.com/wmdmark/jquery-proquo">Download on Github</a>    
-  </p>
-</div>            
+            <div class="hero-unit">
+              <h1>jQuery ProQuo</h1>
+              <p class="hero-tweet">Turn any part of your HTML content into &ldquo;tweetable&rdquo; quotes.</p>
+              <p>
+                <a id="btnGithub" class="btn btn-large btn-primary" href="https://github.com/wmdmark/jquery-proquo">Download on Github</a>    
+              </p>
+            </div>            
 
             <section id="basic">
                 <div class="page-header">

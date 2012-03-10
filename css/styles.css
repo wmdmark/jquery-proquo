@@ -29,13 +29,35 @@ footer {
 }
 
 blockquote {
+	position: relative;
 	font-size: 1.15em;
 	line-height: 1.4em;
 	margin-top: 10px;
+	border: 1px solid #ddd;
+	padding: 10px 20px;
+	border-radius: 4px;
+}
+
+blockquote iframe {
+	position: relative;
+	top: 5px;
+	left: 5px;
+}
+
+blockquote a {
+	padding: 3px 6px;
+	border-radius: 4px;
+	font-size: .9em;
+}
+
+blockquote a:hover {
+	text-decoration: none;
+	background-color: #f4f4f4;
+	color: #22aceb;
 }
 
 .nav li button.btn-info {
-	margin-top: 5px;	
+	margin-top: 5px;
 }
 
 a {
@@ -103,5 +125,16 @@ blockquote#custom .arrow-left-border {
     border-top: 9px solid transparent;
     border-bottom: 9px solid transparent; 
     border-right: 9px solid rgba(0,0,0,.2);
+}
+
+p.hero-tweet {
+	margin-top: 10px;
+	position: relative;
+	line-height: 40px;
+}
+
+p.hero-tweet iframe {
+	position: relative;
+	top: 5px;
 }
 
