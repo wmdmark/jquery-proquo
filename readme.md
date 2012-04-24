@@ -6,4 +6,4 @@ View examples and documentation here: http://wmdmark.github.com/jquery-proquo/
 ## License
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
 
-Copyright (c) 2009, Ryan McGeary (ryanonjavascript -[at]- mcgeary [*dot*] org)
+Created by Mark Johnson [@wmdmark](http://twitter.com/wmdmark)
