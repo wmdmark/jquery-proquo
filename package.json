@@ -1,0 +1,25 @@
+{
+  "name": "jquery-proquo",
+  "version": "1.1.0",
+  "description": "jQuery ProQuo is a jQuery plugin that allows you to turn any part of your HTML content into &ldquo;tweetable&rdquo; quotes.",
+  "main": "jquery.proquo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/wmdmark/jquery-proquo.git"
+  },
+  "author": "Mark Johnson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wmdmark/jquery-proquo/issues"
+  },
+  "homepage": "https://github.com/wmdmark/jquery-proquo",
+  "devDependencies": {
+    "coffee-script": "~1.9.3",
+    "gulp": "~3.9.0",
+    "gulp-util": "~3.0.6",
+    "gulp-coffee": "~2.3.1"
+  }
+}
